@@ -19,11 +19,23 @@ class Place(models.Model):
         if self.lat and self.long:
             self.coordinates = Coordinates(latitude=self.lat, longitude=self.long)
 
-    title = models.CharField(max_length=200, null=True)
-    description_short = models.TextField(null=True)
-    description_long = models.TextField(null=True)
-    lat = models.DecimalField(max_digits=20, decimal_places=16)
-    long = models.DecimalField(max_digits=20, decimal_places=16)
+    title = models.CharField(max_length=200, verbose_name='Название', null=True)
+    description_short = models.TextField(verbose_name='Краткое описание', null=True)
+    description_long = models.TextField(verbose_name='Полное описание', null=True)
+    lat = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Широта',)
+    long = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Долгота')
 
     def __str__(self):
         return f'{self.id}. {self.title.strip()}'
+
+
+class Picture(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название', null=True, blank=True)
+    image = models.ImageField(verbose_name='Картинка', null=True)
+    place = models.ForeignKey(Place, on_delete=models.DO_NOTHING, related_name='pictures', verbose_name='Место', null=True, blank=True)
+
+    def __str__(self):
+        if self.title:
+            return f'{self.id}. {self.title.strip()}'
+        else:
+            return f'Picture #{self.id}'
