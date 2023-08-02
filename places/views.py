@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
+from django.urls import reverse
 import json
 from .models import Place, Picture
 
@@ -18,7 +19,6 @@ def index(request):
 
 def place(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-
     place_json = {
           "title": place.title,
           "imgs": [pic.image.url for pic in place.pictures.all().order_by('order_num')],
@@ -29,13 +29,11 @@ def place(request, place_id):
             "lat": place.long
           }
         }
-
     return JsonResponse(place_json, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 2})
 
 
 def get_places(count: int = 100):
     places = Place.objects.all()
-
     geo_json = {
         "type": "FeatureCollection",
         "features": [
@@ -49,11 +47,10 @@ def get_places(count: int = 100):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": f"places/{place.id}/"
+                    "detailsUrl": reverse('place-json', kwargs={'place_id': place.id})
                 }
             } for place in places
 
         ]
     }
-
     return geo_json
