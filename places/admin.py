@@ -4,6 +4,7 @@ from .models import Place, Picture
 
 class PlacePicturesInline(admin.TabularInline):
     model = Picture
+    fields = ['image', 'title', 'order_num']
 
 
 @admin.register(Place)
