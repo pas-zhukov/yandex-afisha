@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal
-
+from tinymce.models import HTMLField
 from django.db import models
 
 
@@ -21,7 +21,7 @@ class Place(models.Model):
 
     title = models.CharField(max_length=200, verbose_name='Название', null=True)
     description_short = models.TextField(verbose_name='Краткое описание', null=True)
-    description_long = models.TextField(verbose_name='Полное описание', null=True)
+    description_long = HTMLField(verbose_name='Полное описание', null=True)
     lat = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Широта',)
     long = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Долгота')
 
