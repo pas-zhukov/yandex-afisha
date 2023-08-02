@@ -25,14 +25,24 @@ class Place(models.Model):
     lat = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Широта',)
     long = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Долгота')
 
+    class Meta:
+        verbose_name = 'Место'
+        verbose_name_plural = 'Места'
+
     def __str__(self):
         return f'{self.id}. {self.title.strip()}'
 
 
 class Picture(models.Model):
+    order_num = models.IntegerField(null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name='Название', null=True, blank=True)
     image = models.ImageField(verbose_name='Картинка', null=True)
     place = models.ForeignKey(Place, on_delete=models.DO_NOTHING, related_name='pictures', verbose_name='Место', null=True, blank=True)
+
+    class Meta:
+        ordering = ['order_num', ]
+        verbose_name = 'Картинка'
+        verbose_name_plural = 'Картинки'
 
     def __str__(self):
         if self.title:
