@@ -1,5 +1,6 @@
 import os
 from urllib.parse import urlparse, unquote
+import json
 
 import requests
 from django.core.management.base import BaseCommand, CommandError
@@ -17,17 +18,21 @@ class Command(BaseCommand):
         for url in options['json_url']:
             try:
                 place_json = self.get_json(url)
-                place = Place.objects.get_or_create(title=place_json['title'],
-                                                    lat=place_json['coordinates']['lng'],
-                                                    long=place_json['coordinates']['lat'])[0]
-
-                place.description_short = place_json['description_short']
-                place.description_long = place_json['description_long']
-                place.save()
-                self.upload_images(place, place_json['imgs'])
-                self.stdout.write(self.style.SUCCESS('Successfully uploaded places.'))
             except requests.HTTPError:
-                raise CommandError('HTTP Error! Check the URL!')
+                raise CommandError('HTTP Error! Check the file!')
+            except requests.exceptions.MissingSchema:
+                place_json = json.loads(url)
+
+            place = Place.objects.get_or_create(title=place_json['title'],
+                                                lat=place_json['coordinates']['lng'],
+                                                long=place_json['coordinates']['lat'])[0]
+
+            place.description_short = place_json['description_short']
+            place.description_long = place_json['description_long']
+            place.save()
+            self.upload_images(place, place_json['imgs'])
+            self.stdout.write(self.style.SUCCESS('Successfully uploaded places.'))
+
 
     @staticmethod
     def get_json(url: str) -> dict:
