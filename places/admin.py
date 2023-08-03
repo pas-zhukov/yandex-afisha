@@ -28,6 +28,7 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
         return f'{obj.coordinates}'
 
 
+"""
 @admin.register(Picture)
 class PictureAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'image_preview', 'place']
@@ -39,3 +40,4 @@ class PictureAdmin(admin.ModelAdmin):
             width='auto',
             height=100,
         ))
+"""
