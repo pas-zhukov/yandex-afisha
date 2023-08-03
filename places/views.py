@@ -1,9 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
-import json
-from .models import Place, Picture
+from .models import Place
 
 
 def index(request):

@@ -26,18 +26,3 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     def coords(self, obj):
         return f'{obj.coordinates}'
-
-
-"""
-@admin.register(Picture)
-class PictureAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'image_preview', 'place']
-    readonly_fields = ['image_preview']
-
-    def image_preview(self, obj):
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width='auto',
-            height=100,
-        ))
-"""

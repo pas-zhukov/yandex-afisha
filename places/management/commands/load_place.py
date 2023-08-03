@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 place_json = self.get_json(url)
             except requests.HTTPError:
                 raise CommandError('HTTP Error! Check the file!')
-            except requests.exceptions.MissingSchema:
+            except requests.exceptions.MissingSchema:  # try if it was path instead of url
                 with open(url, 'rb') as file:
                     place_json = json.load(file)
 
@@ -32,8 +32,7 @@ class Command(BaseCommand):
             place.description_long = place_json['description_long']
             place.save()
             self.upload_images(place, place_json['imgs'])
-            self.stdout.write(self.style.SUCCESS('Successfully uploaded places.'))
-
+            self.stdout.write(self.style.SUCCESS(f'Successfully uploaded place "{place.title}".'))
 
     @staticmethod
     def get_json(url: str) -> dict:
