@@ -23,6 +23,7 @@ class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ['coords']
     inlines = [PlacePicturesInline]
     sortable_by = ['id', 'title']
+    search_fields = ['title']
 
     def coords(self, obj):
         return f'{obj.coordinates}'
