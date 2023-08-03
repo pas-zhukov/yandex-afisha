@@ -21,7 +21,8 @@ class Command(BaseCommand):
             except requests.HTTPError:
                 raise CommandError('HTTP Error! Check the file!')
             except requests.exceptions.MissingSchema:
-                place_json = json.loads(url)
+                with open(url, 'rb', encoding='utf-8') as file:
+                    place_json = json.load(file)
 
             place = Place.objects.get_or_create(title=place_json['title'],
                                                 lat=place_json['coordinates']['lng'],
