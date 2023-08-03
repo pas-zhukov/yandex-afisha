@@ -7,7 +7,7 @@
 ## Установка зависимостей
 Первым делом, скачайте код:
 ``` 
-git clone https://github.com/KillerBee88/yandex-afisha.git
+git clone https://github.com/pas-zhukov/yandex-afisha.git
 ```
 Установите необходимые зависимости командой:
 ```
