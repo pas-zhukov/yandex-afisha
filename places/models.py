@@ -27,8 +27,8 @@ class Picture(models.Model):
         null=False,
     )
     title = models.CharField(max_length=200, verbose_name='Название', null=False, blank=True)
-    image = models.ImageField(verbose_name='Картинка', null=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='pictures', verbose_name='Место', null=True, blank=True)
+    image = models.ImageField(verbose_name='Картинка', null=False, blank=False)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='pictures', verbose_name='Место', null=False, blank=False)
 
     class Meta:
         ordering = ['order_num', ]
