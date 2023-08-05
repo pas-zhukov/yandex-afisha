@@ -19,9 +19,9 @@ class Place(models.Model):
         if self.lat and self.long:
             self.coordinates = Coordinates(latitude=self.lat, longitude=self.long)
 
-    title = models.CharField(max_length=200, verbose_name='Название', null=True)
-    description_short = models.TextField(verbose_name='Краткое описание', null=True)
-    description_long = HTMLField(verbose_name='Полное описание', null=True)
+    title = models.CharField(max_length=200, verbose_name='Название', null=False)
+    description_short = models.TextField(verbose_name='Краткое описание', null=False)
+    description_long = HTMLField(verbose_name='Полное описание', null=False)
     lat = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Широта',)
     long = models.DecimalField(max_digits=20, decimal_places=16, verbose_name='Долгота')
 
@@ -40,7 +40,7 @@ class Picture(models.Model):
         blank=False,
         null=False,
     )
-    title = models.CharField(max_length=200, verbose_name='Название', null=True, blank=True)
+    title = models.CharField(max_length=200, verbose_name='Название', null=False, blank=True)
     image = models.ImageField(verbose_name='Картинка', null=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='pictures', verbose_name='Место', null=True, blank=True)
 
