@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
@@ -6,14 +6,9 @@ from .models import Place
 
 
 def index(request):
-    template = loader.get_template('index.html')
     places = get_places()
-    context = {
-            'geo_json': places
-
-                   }
-    rendered_page = template.render(context, request)
-    return HttpResponse(rendered_page)
+    context = {'geo_json': places}
+    return render(request, 'index.html', context=context)
 
 
 def place(request, place_id):
