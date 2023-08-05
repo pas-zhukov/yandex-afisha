@@ -13,7 +13,7 @@ def index(request):
 
 def place(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    place_json = {
+    serialized_place = {
           "title": place.title,
           "imgs": [pic.image.url for pic in place.pictures.all().order_by('order_num')],
           "description_short": place.description_short,
@@ -23,12 +23,12 @@ def place(request, place_id):
             "lat": place.long
           }
         }
-    return JsonResponse(place_json, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+    return JsonResponse(serialized_place, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 2})
 
 
 def get_places(count: int = 100):
     places = Place.objects.all()
-    geo_json = {
+    serialized_places = {  # Сериализуем данные в формате GEO JSON
         "type": "FeatureCollection",
         "features": [
 
@@ -47,4 +47,4 @@ def get_places(count: int = 100):
 
         ]
     }
-    return geo_json
+    return serialized_places
