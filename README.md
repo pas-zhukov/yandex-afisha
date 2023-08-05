@@ -25,8 +25,8 @@ pip install -r requirements.txt
 Для работы проекта, в корень необходимо положить файл `.env` со следующими полями:
 
 - `DEBUG` — дебаг-режим. Поставьте `True`, чтобы увидеть отладочную информацию в случае ошибки. Выключается значением `False`. По умолчанию - `False`.
-- `SECRET_KEY` — секретный ключ проекта. Например: `erofheronoirenfoernfx49389f43xf3984xf9384`. По умолчанию - `REPLACE_ME`.
-- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts). По умолчанию - `*`.
+- `SECRET_KEY` — секретный ключ проекта. Например: `erofheronoirenfoernfx49389f43xf3984xf9384`. <b>Обязательное поле!</b>
+- `ALLOWED_HOSTS` — см [документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts).
 - `TIME_ZONE` — временная зона в общепринятом формате.
 
 
