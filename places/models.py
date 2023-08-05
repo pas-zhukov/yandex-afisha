@@ -23,7 +23,7 @@ class Place(models.Model):
 class Picture(models.Model):
     order_num = models.PositiveIntegerField(
         default=0,
-        blank=False,
+        blank=True,
         null=False,
     )
     title = models.CharField(max_length=200, verbose_name='Название', null=False, blank=True)
