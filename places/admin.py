@@ -12,7 +12,7 @@ class PlacePicturesInline(SortableTabularInline):
 
     def image_preview(self, obj):
         html = format_html(
-            mark_safe('<img src="{url}" width="{width}" height={height} />'),
+            '<img src="{url}" width="{width}" height={height} />',
             url=obj.image.url,
             width='auto',
             height=100,)
